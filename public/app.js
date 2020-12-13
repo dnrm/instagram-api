@@ -1,9 +1,11 @@
 class App {
     constructor() {
         this.response;
+        this.urls;
     }
 
     getData() {
+        this.clear()
         let username = document.getElementById('btn').value;
         let uri = `https://instagram.com/${username}/?__a=1`;
         console.log(uri);
@@ -21,6 +23,28 @@ class App {
         let img = document.createElement('img');
         img.src = url;
         parent.appendChild(img);
+    }
+
+    analyzeJson() {
+        this.clear();
+        let json = document.getElementById('json').value;
+        json = JSON.stringify(json);
+        console.log(json);
+
+        this.urls = json.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g);
+        this.urls.forEach(item => {
+            let img = document.createElement('img');
+            if (item.slice(0, 1) == 'h') {
+                img.src = item;
+            } else {
+                img.src = `https://instagram.com${item}`;
+            }
+            document.getElementsByClassName('result')[0].appendChild(img);
+        })
+    }
+
+    clear() {
+        document.getElementsByClassName('result')[0].innerHTML = '';
     }
 }
 
