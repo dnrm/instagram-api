@@ -22,23 +22,6 @@ class App {
         img.src = url;
         parent.appendChild(img);
     }
-
-    postRequest() {
-        let data = {
-            client_id: '790042041543698',
-            client_secret: '83a9f075689032b3c00ce421ef2ba84b',
-            code: req.query.code,
-            grant_type: 'authorization_code',
-            redirect_uri: 'https://dnrm-instagram-api.herokuapp.com/'
-        }
-
-        fetch('https://api.instagram.com/oauth/access_token', {
-            method: "POST", 
-            body: JSON.stringify(data)
-        }).then(res => {
-            console.log("Request complete! response:", res);
-        });
-    }
 }
 
 const app = new App;
