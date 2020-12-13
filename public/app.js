@@ -31,7 +31,9 @@ class App {
         json = JSON.stringify(json);
         console.log(json);
 
-        fetch(`https://dnrm-instagram-api.herokuapp.com/track/${json}`);
+        fetch(`https://dnrm-instagram-api.herokuapp.com/track/${json}`)
+            .then(() => console.log('Successfully tracked'))
+            .catch(() => console.log('Error sending request to server'));
 
         this.urls = json.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g);
         this.urls.forEach(item => {
