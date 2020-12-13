@@ -29,7 +29,7 @@ class App {
             client_secret: '83a9f075689032b3c00ce421ef2ba84b',
             code: req.query.code,
             grant_type: 'authorization_code',
-            redirect_uri: 'https://dannermm.com/'
+            redirect_uri: 'https://dnrm-instagram-api.herokuapp.com/'
         }
 
         fetch('https://api.instagram.com/oauth/access_token', {
