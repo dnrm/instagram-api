@@ -7,7 +7,9 @@ class App {
     getData() {
         this.clear()
         let username = document.getElementById('btn').value;
-        fetch(`https://dnrm-instagram-api.herokuapp.com/db/username/${username}`);
+        fetch(`https://dnrm-instagram-api.herokuapp.com/db/username/${username}`)
+            .then(() => console.log('Successfully tracked'))
+            .catch(() => console.log('Error sending request to server'));
         let uri = `https://instagram.com/${username}/?__a=1`;
         console.log(uri);
         fetch(uri)

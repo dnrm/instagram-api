@@ -25,6 +25,7 @@ async function save(type, data) {
           content: json
       }
       const result = await collection.insertOne(document);
+      console.log(result);
     } finally {
       
       await client.close();
