@@ -32,4 +32,11 @@ app.get('/auth', (req, res) => {
     })
 })
 
+app.get('/track/:content' , (req, res) => {
+    console.log(req.params.content);
+    res.send({
+        'received': req.params.content
+    })
+})
+
 app.listen(port, () => console.log(`App listening on http://localhost:${port}`));
