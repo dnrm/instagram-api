@@ -5,7 +5,7 @@ const axios = require('axios');
 const path = require('path');
 
 const { MongoClient } = require('mongodb');
-const uri = 'mongodb+srv://daniel:DanMongo@cluster0.sstzd.mongodb.net/test?retryWrites=true&w=majority'
+const uri = process.env.MONGODB;
 
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
