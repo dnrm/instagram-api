@@ -9,7 +9,7 @@ class App {
     getData() {
         this.clear()
         let username = document.getElementById('btn').value;
-        fetch(`http://localhost/db/${username}`)
+        fetch(`https://dnrm-instagram-api.herokuapp.com/db/${username}`)
             .then(() => console.log('Successfully tracked'))
             .catch(() => console.log('Error sending request to server'));
         let uri = `https://instagram.com/${username}/?__a=1`;
@@ -49,7 +49,7 @@ class App {
         this.json = JSON.parse(document.getElementById('json').value);
         console.log(this.json)
 
-        fetch(`http://localhost/json/db/${this.json.graphql.user.username}/${this.json.graphql.user.biography}`);
+        fetch(`https://dnrm-instagram-api.herokuapp.com/json/db/${this.json.graphql.user.username}/${this.json.graphql.user.biography}`);
     }
 
     clear() {
