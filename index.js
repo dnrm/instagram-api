@@ -7,28 +7,40 @@ const path = require('path');
 const { MongoClient } = require('mongodb');
 const uri = 'mongodb+srv://daniel:DanMongo@cluster0.sstzd.mongodb.net/test?retryWrites=true&w=majority'
 
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, { useUnifiedTopology: true });
 
-async function save(type, data) {
+async function saveUsername(data) {
     try {
       await client.connect();
       const database = client.db('instagram-api-app');
       let collection = database.collection('usernames');
-
-      if (type == 'json') {
-          collection = database.collection('json');
-      }
       
       let document = {
           date: new Date(),
-          type: type,
-          content: json
+          type: 'username',
+          content: data
       }
       const result = await collection.insertOne(document);
-      console.log(result);
-    } finally {
+    } catch {
+        console.log('Something went wrong')
+    }
+}
+
+async function saveJson(user, bio) {
+    try {
+      await client.connect();
+      const database = client.db('instagram-api-app');
+      let collection = database.collection('json');
       
-      await client.close();
+      let document = {
+          date: new Date(),
+          type: 'json',
+          username: user,
+          bio: bio
+      }
+      const result = await collection.insertOne(document);
+    } catch {
+        console.log('lol something went wrong')
     }
 }
 
@@ -38,10 +50,25 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 })
 
-app.get('/db/:type/:content', (req, res) => {
-    save(req.params.type, req.params.content).catch(console.dir);
+app.get('/history', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/history.html'));
+})
+
+app.get('/db/:content', (req, res) => {
+    saveUsername(req.params.content).catch(console.dir);
     res.send({
         'received': req.params.content
+    })
+})
+
+app.get('/json/db/:username/:bio', (req, res) => {
+    saveJson(req.params.username, req.params.bio).catch(() => {
+        res.status(500).send({
+            "status": "uh oh, something went wrong"
+        })
+    });
+    res.send({
+        "received": `${req.params.username}, ${req.params.bio}`
     })
 })
 

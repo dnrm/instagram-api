@@ -2,12 +2,14 @@ class App {
     constructor() {
         this.response;
         this.urls;
+        this.post;
+        this.json;
     }
 
     getData() {
         this.clear()
         let username = document.getElementById('btn').value;
-        fetch(`https://dnrm-instagram-api.herokuapp.com/db/username/${username}`)
+        fetch(`http://localhost/db/${username}`)
             .then(() => console.log('Successfully tracked'))
             .catch(() => console.log('Error sending request to server'));
         let uri = `https://instagram.com/${username}/?__a=1`;
@@ -32,11 +34,6 @@ class App {
         this.clear();
         let json = document.getElementById('json').value;
         json = JSON.stringify(json);
-        console.log(json);
-
-        fetch(`https://dnrm-instagram-api.herokuapp.com/db/json/${json}`)
-            .then(() => console.log('Successfully tracked'))
-            .catch(() => console.log('Error sending request to server'));
 
         this.urls = json.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g);
         this.urls.forEach(item => {
@@ -48,6 +45,11 @@ class App {
             }
             document.getElementsByClassName('result')[0].appendChild(img);
         })
+
+        this.json = JSON.parse(document.getElementById('json').value);
+        console.log(this.json)
+
+        fetch(`http://localhost/json/db/${this.json.graphql.user.username}/${this.json.graphql.user.biography}`);
     }
 
     clear() {
