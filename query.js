@@ -1,0 +1,1 @@
+db.companies.count({$or: [{$and: [{$or: [{"founded_month": 10},{"founded_year": 2004}]},{$or: [{"category_code": "social"},{"category_code": "web"}]}]}]})
