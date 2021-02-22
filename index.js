@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 80;
-const axios = require('axios');
 const path = require('path');
 
 const { MongoClient } = require('mongodb');
